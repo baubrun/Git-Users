@@ -2,15 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import Card from "./Card";
 import Followers from "./Followers";
-import { useSelector, useDispatch } from "react-redux";
 
 const User = (props) => {
   return (
     <section className="section">
       <Wrapper>
         <header></header>
-        <Card userInfo={props.userInfo}></Card>
-        <Followers></Followers>
+        <Card userInfo={props.userInfo}/>
+        <Followers followers={props.followers}/>
       </Wrapper>
     </section>
   );

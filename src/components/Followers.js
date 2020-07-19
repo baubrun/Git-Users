@@ -1,9 +1,27 @@
-import React from 'react';
+import React from "react";
 // import { GithubContext } from '../context/context';
-import styled from 'styled-components';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const Followers = () => {
-  return <h2>followers component</h2>;
+const Followers = ({ followers }) => {
+  return (
+    <Wrapper>
+      <div className="followers">
+        {followers.map((f, idx) => {
+          const { avatar_url: img, html_url, login } = f;
+          return (
+            <article key={idx}>
+              <img src={img} alt={login} />
+              <div>
+                <h4>{login}</h4>
+                <Link to={html_url}>{html_url}</Link>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.article`
@@ -14,7 +32,7 @@ const Wrapper = styled.article`
   position: relative;
 
   &::before {
-    content: ' followers';
+    content: " followers";
     position: absolute;
     top: 0;
     left: 0;
