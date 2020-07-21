@@ -4,16 +4,17 @@ import loadingImage from '../images/preloader.gif';
 import { useSelector, useDispatch } from 'react-redux';
 import {userState, getUser} from "../app/rdx/userSlice"
 import {followerState, getFollower} from "../app/rdx/followerSlice"
-// import { GithubContext } from '../context/context';
+import {repoState, getRepos} from "../app/rdx/repoSlice.js"
+
+
 import mockUser from "../app/mockData/mockUser"
 import mockFollower from "../app/mockData/mockFollowers"
+import mockRepos from "../app/mockData/mockRepos"
 
 const Dashboard = () => {
-  // const [followers, setFollowers] = useState(mockFollowers)
-  // const [githubUser, setGithubUser] = useState(mockUser)
-  // const [repos, setRepos] = useState(mockRepos)
   const userInfo = useSelector(userState);
   const followers = useSelector(followerState)
+  const repos = useSelector(repoState)
   const dispatch = useDispatch();
 
 
@@ -21,6 +22,7 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(getUser(mockUser))
     dispatch(getFollower(mockFollower))
+    dispatch(getRepos(mockRepos))
   }, [])
 
 
@@ -30,7 +32,7 @@ const Dashboard = () => {
       {/* <Search /> */}
       <Info repoInfo={userInfo}/>
       <User followers={followers} userInfo={userInfo} />
-      {/* <Repos /> */}
+      <Repos />
     </main>
   );
 };
