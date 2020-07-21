@@ -29,10 +29,10 @@ const Dashboard = () => {
   return (
     <main>
       {/* <Navbar /> */}
-      {/* <Search /> */}
+      <Search />
       <Info repoInfo={userInfo}/>
       <User followers={followers} userInfo={userInfo} />
-      <Repos />
+      <Repos repos={repos}/>
     </main>
   );
 };

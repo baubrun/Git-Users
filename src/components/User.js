@@ -6,8 +6,7 @@ import Followers from "./Followers";
 const User = (props) => {
   return (
     <section className="section">
-      <Wrapper>
-        <header></header>
+      <Wrapper className="section-center">
         <Card userInfo={props.userInfo}/>
         <Followers followers={props.followers}/>
       </Wrapper>

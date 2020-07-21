@@ -1,31 +1,62 @@
-import React from 'react';
-import styled from 'styled-components';
-// import { GithubContext } from '../context/context';
-import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts';
+import React from "react";
+import styled from "styled-components";
+import { Pie3D, Column3D, Bar3D, Doughnut2D } from "./Charts";
 
+const Repos = ({ repos }) => {
+  const languages = repos.reduce((total, val) => {
+    const { language, stargazers_count } = val;
+    if (!language) {
+      return total;
+    }
+    if (!total[language]) {
+      total[language] = {
+        label: language,
+        value: 1,
+        stars: stargazers_count,
+      };
+    } else {
+      total[language] = {
+        ...total[language],
+        value: total[language].value + 1,
+        stars: total[language].stars + stargazers_count,
+      };
+    }
+    return total;
+  }, {});
+  const mostUsed = Object.values(languages)
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 5);
 
-const Repos = () => {
-  const chartData = [
-    {
-      label: "Html",
-      value: "13"
+  const mostStars = Object.values(languages)
+    .sort((a, b) => b.stars - a.stars)
+    .map((item) => {
+      return { ...item, value: item.stars };
+    });
+
+  let { stars, forks } = repos.reduce(
+    (total, val) => {
+      const { stargazers_count, name, forks } = val;
+      total.stars[stargazers_count] = { label: name, value: stargazers_count };
+      total.forks[forks] = { label: name, value: forks };
+      return total;
     },
-    {
-      label: "JS",
-      value: "86"
-    },
-    {
-      label: "Css",
-      value: "1002"
-    },
-    
-  ];
-  
-  return <section className="section">
-    <Wrapper className="section-center">
-    <ExampleChart data={chartData}/>
-    </Wrapper>
-  </section>
+    { stars: {}, forks: {} }
+  );
+  console.log(stars);
+
+  stars = Object.values(stars).slice(-5).reverse();
+  forks = Object.values(forks).slice(-5).reverse();
+
+  return (
+    <section className="section">
+      <Wrapper className="section-center">
+        <Pie3D data={mostUsed} />
+        <Column3D data={stars} />
+        <Doughnut2D data={mostStars} />
+        <Bar3D data={forks} />
+      </Wrapper>
+    </section>
+  );
 };
 
 const Wrapper = styled.div`

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { ector, useDispatch } from "react-redux";
 
 import styled from "styled-components";
 import { GoRepo, GoGist } from "react-icons/go";
@@ -8,7 +8,6 @@ import { FiUsers, FiUserPlus } from "react-icons/fi";
 
 const UserInfo = (props) => {
   const { followers, following, public_gists, public_repos } = props.repoInfo;
-  console.log(props);
   const items = [
     {
       color: "pink",

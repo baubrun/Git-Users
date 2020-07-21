@@ -1,5 +1,4 @@
 import React from "react";
-// import { GithubContext } from '../context/context';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
