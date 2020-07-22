@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { MdSearch } from "react-icons/md";
+import { fetchRequestLimit, requestLimitState } from "../app/rdx";
+import { useSelector, useDispatch } from "react-redux";
 
-const Search = () => {
+const Search = (props) => {
   const [user, setUser] = useState("");
+  const requestLimit = useSelector(requestLimitState);
+
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log(user);
   };
 
   const handleChange = (evt) => {
-    setUser(evt.target.value)
-  }
+    setUser(evt.target.value);
+  };
+
+  if (JSON.stringify(requestLimit) === "{}") return null;
 
   return (
     <section className="section">
@@ -26,10 +31,14 @@ const Search = () => {
               type="text"
               value={user}
             />
-            <button type="submit">Search</button>
+              {requestLimit > 0 ? (
+              // {props.requestLimit > 0 ? (
+              <button type="submit">Search</button>
+            ) : null}
           </div>
         </form>
-        <h3>Requests: 60 / 60</h3>
+        <h3>Requests: {requestLimit } / 60</h3>
+        {/* <h3>Requests: {props.requestLimit } / 60</h3> */}
       </Wrapper>
     </section>
   );

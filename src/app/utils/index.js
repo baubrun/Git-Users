@@ -1,1 +1,1 @@
-export const rootUrl = "https://api.github.com"
+export let gitApiUrl = "https://api.github.com"
