@@ -1,51 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { MdSearch } from "react-icons/md";
-import { fetchRequestLimit, requestLimitState } from "../app/rdx";
+import { fetchUser, userState, getMockUser } from "../app/rdx";
 import { useSelector, useDispatch } from "react-redux";
+import {toggleError} from "../app/utils"
 
 const Search = (props) => {
   const [user, setUser] = useState("");
-  const requestLimit = useSelector(requestLimitState);
+  const [request, setRequest] = useState(0);
+  const dispatch = useDispatch();
+  const [loading, isLoading] = useState(false);
+  const [error, setError] = useState({ show: false, msg: "" });
 
+  useEffect(() => {
+    // if(toggleError())
+    // setError(toggleError(true, "User not found."));
+  }, []);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    dispatch(fetchUser(user));
   };
 
   const handleChange = (evt) => {
     setUser(evt.target.value);
   };
 
-  if (JSON.stringify(requestLimit) === "{}") return null;
+  // if (JSON.stringify(request) === "{}") return null;
 
   return (
-    <section className="section">
-      <Wrapper>
-        <form onSubmit={handleSubmit}>
-          <div className="form-control">
-            <MdSearch />
-            <input
-              onChange={(evt) => handleChange(evt)}
-              placeholder="Search User"
-              type="text"
-              value={user}
-            />
-              {requestLimit > 0 ? (
-              // {props.requestLimit > 0 ? (
-              <button type="submit">Search</button>
-            ) : null}
-          </div>
-        </form>
-        <h3>Requests: {requestLimit } / 60</h3>
-        {/* <h3>Requests: {props.requestLimit } / 60</h3> */}
-      </Wrapper>
-    </section>
+    <>
+      <section className="section">
+        <Wrapper>
+          <form onSubmit={handleSubmit}>
+            <div className="form-control">
+              <MdSearch />
+              <input
+                onChange={(evt) => handleChange(evt)}
+                placeholder="Search User"
+                type="text"
+                value={user}
+              />
+              {error.show ? null : (
+                <button type="submit"> Search </button>
+              )}
+            </div>
+          </form>
+          <h3> Requests: {props.requestLimit}/ 60</h3>
+        </Wrapper>
+      </section>
+      {error.show && <ErrorWrapper> {error.msg} </ErrorWrapper>}
+    </>
   );
 };
 
+const ErrorWrapper = styled.article`
+  width: 90vw;
+  transform: translateY(-100%);
+  text-transform: capitalize;
+  color: red;
+  letter-spacing: var(--spacing);
+  margin: 10px;
+`;
+
 const Wrapper = styled.div`
-  position: relative;
   display: grid;
   gap: 1rem 1.75rem;
   @media (min-width: 768px) {
@@ -113,16 +131,5 @@ const Wrapper = styled.div`
     font-weight: 400;
   }
 `;
-const ErrorWrapper = styled.article`
-  position: absolute;
-  width: 90vw;
-  top: 0;
-  left: 0;
-  transform: translateY(-100%);
-  text-transform: capitalize;
-  p {
-    color: red;
-    letter-spacing: var(--spacing);
-  }
-`;
+
 export default Search;

@@ -1,35 +1,48 @@
-import repoReducer, { repoSlice, repoState, getRepos } from "./repoSlice";
 import followerReducer, {
   followerSlice,
   followerState,
   getFollower,
 } from "./followerSlice";
-import userReducer, { userSlice, userState, getUser } from "./userSlice";
+
+import repoReducer, { repoSlice, repoState, getRepos } from "./repoSlice";
+
+
 import requestLimitReducer, {
   requestLimitSlice,
   requestLimitState,
   fetchRequestLimit,
 } from "./requestLimitSlice";
 
+import userReducer, { userSlice, userState, fetchUser } from "./userSlice";
+import mockUserReducer, { mockUserSlice, mockUserState, getMockUser } from "./mockUserSlice";
+
 export {
+
  //slices
+ followerSlice,
   repoSlice,
-  followerSlice,
-  userSlice,
   requestLimitSlice,
+  userSlice,
+  mockUserSlice,
+  
   // states
-  repoState,
   followerState,
-  userState,
+  repoState,
   requestLimitState,
+  userState,
+  mockUserState,
+
   // actions
-  getRepos,
   getFollower,
-  getUser,
+  getRepos,
   fetchRequestLimit,
+  fetchUser,
+  getMockUser,
+
   //reducers
-  repoReducer,
   followerReducer,
-  userReducer,
+  repoReducer,
   requestLimitReducer,
+  userReducer,
+  mockUserReducer,
 };

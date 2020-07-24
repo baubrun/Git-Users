@@ -15,6 +15,8 @@ const Card = (props) => {
     twitter_username,
   } = props.userInfo;
 
+  if (JSON.stringify(props.userInfo) === "{}") return null;
+
   return (
     <section className="section">
       <Wrapper>

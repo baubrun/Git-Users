@@ -5,6 +5,7 @@ import {
   followerReducer,
   repoReducer,
   requestLimitReducer,
+  mockUserReducer,
 } from "../../app/rdx";
 
 export default configureStore({
@@ -13,5 +14,6 @@ export default configureStore({
     follower: followerReducer,
     repo: repoReducer,
     requestLimit: requestLimitReducer,
+    mockUser: mockUserReducer,
   },
 });
