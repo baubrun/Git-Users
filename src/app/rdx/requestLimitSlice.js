@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { gitRootUrl } from "../utils";
 
-
 export const fetchRequestLimit = createAsyncThunk(
   "api.github.com/rate_limit",
   async () => {
@@ -13,7 +12,7 @@ export const fetchRequestLimit = createAsyncThunk(
       } = response.data;
       return remaining;
     } catch (error) {
-      console.log(error.message);
+      return error.message;
     }
   }
 );
@@ -21,7 +20,8 @@ export const fetchRequestLimit = createAsyncThunk(
 export const requestLimitSlice = createSlice({
   name: "requestLimit",
   initialState: {
-    value: 60,
+    value: "",
+    error: "",
   },
   reducers: {
     getRequestLimit: (state, action) => {
@@ -31,6 +31,11 @@ export const requestLimitSlice = createSlice({
   extraReducers: {
     [fetchRequestLimit.fulfilled]: (state, action) => {
       state.value = action.payload;
+    },
+    extraReducers: {
+      [fetchRequestLimit.rejected]: (state, action) => {
+        state.error = action.payload;
+      },
     },
   },
 });

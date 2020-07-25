@@ -34,13 +34,14 @@ const Dashboard = () => {
 
 
   useEffect(() => {
+    dispatch(fetchRequestLimit());
     dispatch(getMockUser(mockUser));
     dispatch(getFollower(mockFollower));
     dispatch(getRepos(mockRepos));
-    dispatch(fetchRequestLimit());
-    if (requestLimit <= 0)
-      toggleError(true, "Exceeded hourly limit" );
-  }, [requestLimit]);
+    // if (requestLimit <= 0)
+    //   toggleError(true, "Exceeded hourly limit" );
+  }, []);
+
 
 
   return (

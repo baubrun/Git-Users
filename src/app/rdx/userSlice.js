@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { gitRootUrl } from "../utils";
-import {toggleError} from "../utils"
+import { toggleError } from "../utils";
 
 export const fetchUser = createAsyncThunk(
   "api.github.com/users/:user",
@@ -14,7 +14,7 @@ export const fetchUser = createAsyncThunk(
       // }
       return response.data;
     } catch (error) {
-     console.log(error)
+      return error.message;
     }
   }
 );
@@ -23,12 +23,11 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     value: {},
-    error: null
+    error: "",
   },
   reducers: {
     getUser: (state, action) => {
-      state.value = action.payload
-      state.error = action.payload.error
+      state.value = action.payload;
     },
   },
   extraReducers: {
@@ -39,12 +38,8 @@ export const userSlice = createSlice({
       state.error = action.payload;
     },
   },
-  
 });
 
 export const { getUser } = userSlice.actions;
 export const userState = (state) => state.value;
 export default userSlice.reducer;
-
-
-

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { MdSearch } from "react-icons/md";
-import { fetchUser, userState, getMockUser } from "../app/rdx";
+import { fetchUser, userState, getMockUser, fetchRequestLimit } from "../app/rdx";
 import { useSelector, useDispatch } from "react-redux";
 import {toggleError} from "../app/utils"
 
@@ -20,6 +20,8 @@ const Search = (props) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     dispatch(fetchUser(user));
+    dispatch(fetchRequestLimit());
+
   };
 
   const handleChange = (evt) => {
@@ -32,7 +34,7 @@ const Search = (props) => {
     <>
       <section className="section">
         <Wrapper>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(evt) => handleSubmit(evt)}>
             <div className="form-control">
               <MdSearch />
               <input
