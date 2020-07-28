@@ -34,7 +34,7 @@ export const requestLimitSlice = createSlice({
     },
     extraReducers: {
       [fetchRequestLimit.rejected]: (state, action) => {
-        state.error = action.payload;
+        state.error = action.error;
       },
     },
   },

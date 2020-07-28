@@ -7,7 +7,7 @@ import { GoRepo, GoGist } from "react-icons/go";
 import { FiUsers, FiUserPlus } from "react-icons/fi";
 
 const UserInfo = (props) => {
-  const { followers, following, public_gists, public_repos } = props.repoInfo;
+  const { followers, following, public_gists, public_repos } = props.repoInfo.value;
   const items = [
     {
       color: "pink",

@@ -24,13 +24,12 @@ import mockRepos from "../app/mockData/mockRepos";
 import {toggleError} from "../app/utils"
 
 const Dashboard = () => {
-  const userInfo = useSelector(mockUserState);
-  // const userInfo = useSelector(userState);
+  // const userInfo = useSelector(mockUserState);
+  const userInfo = useSelector(userState);
   const followers = useSelector(followerState);
   const repos = useSelector(repoState);
   const requestLimit = useSelector(requestLimitState);
   const dispatch = useDispatch();
-  // const [error, setError] = useState({ show: false, msg: "" });
 
 
   useEffect(() => {

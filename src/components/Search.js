@@ -6,19 +6,24 @@ import { useSelector, useDispatch } from "react-redux";
 import {toggleError} from "../app/utils"
 
 const Search = (props) => {
+  const dispatch = useDispatch();  
+  const userInfo = useSelector(userState);
   const [user, setUser] = useState("");
   const [request, setRequest] = useState(0);
-  const dispatch = useDispatch();
   const [loading, isLoading] = useState(false);
   const [error, setError] = useState({ show: false, msg: "" });
 
+
+
   useEffect(() => {
-    // if(toggleError())
-    // setError(toggleError(true, "User not found."));
-  }, []);
+    if(userInfo.error === true){
+      setError(toggleError(true, "User not found."));
+    }
+  },[userInfo]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    setError(toggleError(false, ""));
     dispatch(fetchUser(user));
     dispatch(fetchRequestLimit());
 
@@ -28,7 +33,6 @@ const Search = (props) => {
     setUser(evt.target.value);
   };
 
-  // if (JSON.stringify(request) === "{}") return null;
 
   return (
     <>
@@ -43,9 +47,9 @@ const Search = (props) => {
                 type="text"
                 value={user}
               />
-              {error.show ? null : (
+              {/* {error.show ? null : ( */}
                 <button type="submit"> Search </button>
-              )}
+              {/* )} */}
             </div>
           </form>
           <h3> Requests: {props.requestLimit}/ 60</h3>
