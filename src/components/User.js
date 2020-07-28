@@ -9,7 +9,7 @@ const User = (props) => {
   return (
     <section className="section">
       <Wrapper className="section-center">
-        <Card userInfo={props.userInfo.value}/>
+        <Card userInfo={props.userInfo}/>
         <Followers followers={props.followers}/>
       </Wrapper>
     </section>

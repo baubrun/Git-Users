@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { MdSearch } from "react-icons/md";
-import { fetchUser, userState, getMockUser, fetchRequestLimit } from "../app/rdx";
+import { fetchUser, userState, requestLimitState, fetchRequestLimit } from "../app/rdx";
 import { useSelector, useDispatch } from "react-redux";
 import {toggleError} from "../app/utils"
 
@@ -9,16 +9,17 @@ const Search = (props) => {
   const dispatch = useDispatch();  
   const userInfo = useSelector(userState);
   const [user, setUser] = useState("");
-  const [request, setRequest] = useState(0);
-  const [loading, isLoading] = useState(false);
   const [error, setError] = useState({ show: false, msg: "" });
+  const requestLimit = useSelector(requestLimitState);
 
 
 
   useEffect(() => {
+    setError(toggleError(false, ""));
     if(userInfo.error === true){
       setError(toggleError(true, "User not found."));
     }
+    dispatch(fetchRequestLimit());
   },[userInfo]);
 
   const handleSubmit = (evt) => {
@@ -26,7 +27,6 @@ const Search = (props) => {
     setError(toggleError(false, ""));
     dispatch(fetchUser(user));
     dispatch(fetchRequestLimit());
-
   };
 
   const handleChange = (evt) => {
@@ -47,12 +47,12 @@ const Search = (props) => {
                 type="text"
                 value={user}
               />
-              {/* {error.show ? null : ( */}
+              {userInfo.loading || requestLimit <= 0 ? null : (
                 <button type="submit"> Search </button>
-              {/* )} */}
+               )} 
             </div>
           </form>
-          <h3> Requests: {props.requestLimit}/ 60</h3>
+          {!userInfo.loading && <h3> Requests: {props.requestLimit}/ 60</h3>}
         </Wrapper>
       </section>
       {error.show && <ErrorWrapper> {error.msg} </ErrorWrapper>}

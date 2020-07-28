@@ -11,9 +11,9 @@ import {
 export default configureStore({
   reducer: {
     user: userReducer,
-    follower: followerReducer,
-    repo: repoReducer,
+    // follower: followerReducer,
+    // repo: repoReducer,
     requestLimit: requestLimitReducer,
-    mockUser: mockUserReducer,
+    // mockUser: mockUserReducer,
   },
 });

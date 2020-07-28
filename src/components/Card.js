@@ -4,6 +4,8 @@ import { MdBusiness, MdLocationOn, MdLink } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const Card = (props) => {
+  if (JSON.stringify(props.userInfo) === "{}") return null;
+
   const {
     avatar_url,
     blog,
@@ -13,9 +15,8 @@ const Card = (props) => {
     location,
     name,
     twitter_username,
-  } = props.userInfo;
+  } = props.userInfo
 
-  if (JSON.stringify(props.userInfo) === "{}") return null;
 
   return (
     <section className="section">

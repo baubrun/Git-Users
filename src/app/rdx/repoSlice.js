@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 
+
 export const repoSlice = createSlice({
     name: "repo",
     initialState: {
@@ -12,6 +13,10 @@ export const repoSlice = createSlice({
         }
     }
 })
+
+
+
+
 
 export const {getRepos} = repoSlice.actions
 export const repoState = state => state.repo.value
