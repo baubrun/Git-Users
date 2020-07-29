@@ -25,23 +25,23 @@ import Loader from "react-loader-spinner";
 
 const Dashboard = () => {
   const { followers, loading, repos, user } = useSelector(userState);
-  const requestLimit = useSelector(requestLimitState);
-  const dispatch = useDispatch();
+  // const requestLimit = useSelector(requestLimitState);
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchRequestLimit());
-    // dispatch(getMockUser(mockUser));
-    // dispatch(getFollower(mockFollower));
-    // dispatch(getRepos(mockRepos));
-    // if (requestLimit <= 0)
-    //   toggleError(true, "Exceeded hourly limit" );
-  }, [requestLimit]);
+  // useEffect(() => {
+  //   // dispatch(fetchRequestLimit());
+  // }, [requestLimit]);
+
+
+  // let reqLimit = 60 - requestLimit
+
 
   if (loading) {
     return (
       <main>
         <Navbar />
-        <Search requestLimit={requestLimit} />
+        {/* <Search requestLimit={requestLimit} /> */}
+        <Search  />
         <Loader
           className="loading-img"
           type="Grid"
@@ -56,7 +56,8 @@ const Dashboard = () => {
   return (
     <main>
       <Navbar />
-      <Search requestLimit={requestLimit} />
+      {/* <Search requestLimit={requestLimit} /> */}
+      <Search  />
       {(followers.length || repos.length) > 0 && (
         <>
           <Info repoInfo={user} />

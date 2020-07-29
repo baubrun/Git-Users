@@ -1,38 +1,56 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { MdSearch } from "react-icons/md";
-import { fetchUser, userState, requestLimitState, fetchRequestLimit } from "../app/rdx";
+import {
+  fetchUser,
+  userState,
+  requestLimitState,
+  fetchRequestLimit,
+} from "../app/rdx";
 import { useSelector, useDispatch } from "react-redux";
-import {toggleError} from "../app/utils"
+import { toggleError } from "../app/utils";
 
-const Search = (props) => {
-  const dispatch = useDispatch();  
+const Search = () => {
+  const requestLimit = useSelector(requestLimitState);
+  const dispatch = useDispatch();
   const userInfo = useSelector(userState);
   const [user, setUser] = useState("");
-  const [error, setError] = useState({ show: false, msg: "" });
-  const requestLimit = useSelector(requestLimitState);
-
+  const [error, setError] = useState({
+    show: false,
+    msg: "",
+  });
 
 
   useEffect(() => {
+    dispatch(fetchRequestLimit());
+    console.log("dispatch(fetchRequestLimit())")
     setError(toggleError(false, ""));
-    if(userInfo.error === true){
+    if (userInfo.error === true) {
       setError(toggleError(true, "User not found."));
     }
-    dispatch(fetchRequestLimit());
-  },[userInfo]);
+  }, [userInfo]);
+
+  let maxRequests = requestLimit < 1
+
+
+  useEffect(() => {
+    if (maxRequests ) {
+      setError(toggleError(true, "Exceeded hourly limit. Later!"));
+    }
+  }, [requestLimit]);
+
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     setError(toggleError(false, ""));
     dispatch(fetchUser(user));
     dispatch(fetchRequestLimit());
+    console.log("dispatch(fetchRequestLimit())")
   };
 
   const handleChange = (evt) => {
     setUser(evt.target.value);
   };
-
 
   return (
     <>
@@ -47,12 +65,12 @@ const Search = (props) => {
                 type="text"
                 value={user}
               />
-              {userInfo.loading || requestLimit <= 0 ? null : (
+              {userInfo.loading || maxRequests ? null : (
                 <button type="submit"> Search </button>
-               )} 
+              )}
             </div>
           </form>
-          {!userInfo.loading && <h3> Requests: {props.requestLimit}/ 60</h3>}
+          {!userInfo.loading && <h3> Requests: {requestLimit}/ 60 </h3>}
         </Wrapper>
       </section>
       {error.show && <ErrorWrapper> {error.msg} </ErrorWrapper>}

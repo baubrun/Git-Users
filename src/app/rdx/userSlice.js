@@ -7,20 +7,32 @@ import {
 gitRootUrl
 } from "../utils";
 
+
+
 export const fetchUser = createAsyncThunk(
   "api.github.com/users/:user",
   async (user) => {
     try {
+      let resolvedData = {
+        followers: null,
+        repos: null,
+        user: null
+      }
+
       const response = await axios.get(`${gitRootUrl}/users/${user}`);
       if (response) {
         const {login} = response.data
-        const repos = await axios.get(`${gitRootUrl}/users/${login}/repos?per_page=100`);
-        const followers = await axios.get(`${gitRootUrl}/users/${login}/followers?per_page_100`);
-        return {
-          followers: followers.data,
-          repos: repos.data,
-          user: response.data,
-        }
+        resolvedData.user = response.data
+        await Promise.allSettled([
+           axios.get(`${gitRootUrl}/users/${login}/repos?per_page=100`),
+           axios.get(`${gitRootUrl}/users/${login}/followers?per_page_100`)
+        ]).then(results => {
+          const [repos, followers] = results
+          resolvedData.followers = followers.value.data
+          resolvedData.repos = repos.value.data
+        })
+
+      return {...resolvedData}
       }
     } catch (error) {
       throw error;

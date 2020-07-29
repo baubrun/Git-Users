@@ -20,7 +20,7 @@ export const fetchRequestLimit = createAsyncThunk(
 export const requestLimitSlice = createSlice({
   name: "requestLimit",
   initialState: {
-    value: "",
+    value: 60,
     error: "",
   },
   reducers: {
