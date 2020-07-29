@@ -1,45 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Info, Navbar, Repos, Search, User } from "../components";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  // state
-  // followerState,
-  // repoState,
-  requestLimitState,
-  userState,
-  // mockUserState,
-
-  // actions
-  // getFollower,
-  // getRepos,
-  fetchRequestLimit,
-  // getMockUser,
-} from "../app/rdx";
-
-// import mockUser from "../app/mockData/mockUser";
-// import mockFollower from "../app/mockData/mockFollowers";
-// import mockRepos from "../app/mockData/mockRepos";
+import { useSelector } from "react-redux";
+import { userState } from "../app/rdx";
 
 import Loader from "react-loader-spinner";
 
 const Dashboard = () => {
   const { followers, loading, repos, user } = useSelector(userState);
-  // const requestLimit = useSelector(requestLimitState);
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   // dispatch(fetchRequestLimit());
-  // }, [requestLimit]);
-
-
-
+  const userInfo = useSelector(userState);
 
   if (loading) {
     return (
       <main>
         <Navbar />
-        {/* <Search requestLimit={requestLimit} /> */}
-        <Search  />
+        <Search />
         <Loader
           className="loading-img"
           type="Grid"
@@ -54,9 +28,10 @@ const Dashboard = () => {
   return (
     <main>
       <Navbar />
-      {/* <Search requestLimit={requestLimit} /> */}
-      <Search  />
-      {(followers.length || repos.length) > 0 && (
+      <Search />
+      {(followers.length && repos.length) < 1 && (!userInfo.error) ? (
+        <h3>{`Search to see user info...`}</h3>
+      ) : (
         <>
           <Info repoInfo={user} />
           <User followers={followers} userInfo={user} />

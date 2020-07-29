@@ -4,7 +4,7 @@ import {
 } from "@reduxjs/toolkit";
 import axios from "axios";
 import {
-gitRootUrl
+  gitRootUrl
 } from "../utils";
 
 
@@ -21,18 +21,22 @@ export const fetchUser = createAsyncThunk(
 
       const response = await axios.get(`${gitRootUrl}/users/${user}`);
       if (response) {
-        const {login} = response.data
+        const {
+          login
+        } = response.data
         resolvedData.user = response.data
         await Promise.allSettled([
-           axios.get(`${gitRootUrl}/users/${login}/repos?per_page=100`),
-           axios.get(`${gitRootUrl}/users/${login}/followers?per_page_100`)
+          axios.get(`${gitRootUrl}/users/${login}/repos?per_page=100`),
+          axios.get(`${gitRootUrl}/users/${login}/followers?per_page_100`)
         ]).then(results => {
           const [repos, followers] = results
           resolvedData.followers = followers.value.data
           resolvedData.repos = repos.value.data
         })
 
-      return {...resolvedData}
+        return {
+          ...resolvedData
+        }
       }
     } catch (error) {
       throw error;

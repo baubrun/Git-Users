@@ -15,8 +15,8 @@ const Navbar = () => {
 
   return (
     <Wrapper>
-      {isUser && <img src={user.picture} alt={user.name}></img>}
-      {isUser && (
+      {isUser &&  <img src={user.picture} alt={user.name}></img>}
+      {isUser &&  (
         <h4>
           Bienvenue! <strong>{user.name.toUpperCase()}</strong>
         </h4>
