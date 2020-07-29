@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Loader from "react-loader-spinner";
 
 const AuthWrapper = ({ children }) => {
-  const {error, isLoading,  } = useAuth0();
+  const {error, isLoading } = useAuth0();
 
   if (isLoading) {
     return (
