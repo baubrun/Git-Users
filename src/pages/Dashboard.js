@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Info, Navbar, Repos, Search, User } from "../components";
-import loadingImage from "../images/preloader.gif";
 import { useSelector, useDispatch } from "react-redux";
 import {
   // state
@@ -33,7 +32,6 @@ const Dashboard = () => {
   // }, [requestLimit]);
 
 
-  // let reqLimit = 60 - requestLimit
 
 
   if (loading) {

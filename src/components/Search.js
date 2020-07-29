@@ -23,7 +23,6 @@ const Search = () => {
 
   useEffect(() => {
     dispatch(fetchRequestLimit());
-    console.log("dispatch(fetchRequestLimit())")
     setError(toggleError(false, ""));
     if (userInfo.error === true) {
       setError(toggleError(true, "User not found."));
@@ -45,7 +44,6 @@ const Search = () => {
     setError(toggleError(false, ""));
     dispatch(fetchUser(user));
     dispatch(fetchRequestLimit());
-    console.log("dispatch(fetchRequestLimit())")
   };
 
   const handleChange = (evt) => {
