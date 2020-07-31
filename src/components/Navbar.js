@@ -8,7 +8,6 @@ const Navbar = () => {
     loginWithRedirect,
     logout,
     user,
-    isLoading,
   } = useAuth0();
 
   const isUser = isAuthenticated && user;
@@ -30,7 +29,7 @@ const Navbar = () => {
           Logout
         </button>
       ) : (
-        <button onClick={loginWithRedirect}>Login</button>
+        <button onClick={() => loginWithRedirect()}>Login</button>
       )}
     </Wrapper>
   );
