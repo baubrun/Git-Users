@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { MdBusiness, MdLocationOn, MdLink } from "react-icons/md";
-import { Link } from "react-router-dom";
 
 const Card = (props) => {
   if (JSON.stringify(props.userInfo) === "{}") return null;
@@ -24,14 +23,13 @@ const Card = (props) => {
         <header>
           <img
             src={avatar_url}
-            // className="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}"
             alt="name"
           />
           <div>
             <h4>{name}</h4>
             <p>@{twitter_username || "N/A"}</p>
           </div>
-          <Link to={html_url}>Follow</Link>
+          <a href={html_url}>Follow</a>
         </header>
         <p className="bio">{bio}</p>
         <div className="links">
@@ -41,7 +39,7 @@ const Card = (props) => {
           <p>
             <MdLocationOn /> {location || "earth"}
           </p>
-          <Link to={`https://${blog}`}><MdLink /> {blog}</Link>
+          <a href={`https://${blog}`}><MdLink /> {blog}</a>
         </div>
       </Wrapper>
     </section>

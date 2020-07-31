@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 const Followers = ({ followers }) => {
   return (
@@ -13,7 +12,7 @@ const Followers = ({ followers }) => {
               <img src={img} alt={login} />
               <div>
                 <h4>{login}</h4>
-                <Link to={html_url}>{html_url}</Link>
+                <a href={html_url}>{html_url}</a>
               </div>
             </article>
           );
