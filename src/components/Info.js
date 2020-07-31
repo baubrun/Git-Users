@@ -1,7 +1,4 @@
 import React from "react";
-
-import { ector, useDispatch } from "react-redux";
-
 import styled from "styled-components";
 import { GoRepo, GoGist } from "react-icons/go";
 import { FiUsers, FiUserPlus } from "react-icons/fi";
@@ -41,11 +38,10 @@ const UserInfo = (props) => {
   return (
     <section>
       <Wrapper className="section-center">
-        {" "}
         {items.map((item) => {
           return <Item key={item.id} {...item}></Item>;
-        })}{" "}
-      </Wrapper>{" "}
+        })}
+      </Wrapper>
     </section>
   );
 };
@@ -53,10 +49,10 @@ const UserInfo = (props) => {
 const Item = ({ color, icon, label, value }) => {
   return (
     <article className="item">
-      <span className={color}> {icon} </span>{" "}
+      <span className={color}> {icon} </span>
       <div>
-        <h3> {value} </h3> <p> {label} </p>{" "}
-      </div>{" "}
+        <h3> {value} </h3> <p> {label} </p>
+      </div>
     </article>
   );
 };

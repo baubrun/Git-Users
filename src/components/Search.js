@@ -36,7 +36,7 @@ const Search = () => {
     if (maxRequests ) {
       setError(toggleError(true, "Exceeded hourly limit. Later!"));
     }
-  }, [requestLimit]);
+  }, [maxRequests]);
 
 
   const handleSubmit = (evt) => {
